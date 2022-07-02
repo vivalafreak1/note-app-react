@@ -1,14 +1,13 @@
 import React from 'react';
-import NoteItemBody from './NoteItemBody';
+import NoteItemContent from './NoteItemContent';
 import { showFormattedDate } from '../utils/data';
-import DeleteButton from './DeleteButton';
+import NoteItemAction from './NoteItemAction';
 
-
-function NoteItem({ title, createdAt, body, id, onDelete }) {
+function NoteItem({ title, createdAt, body, id, onDelete, onArchive }) {
   return (
     <div className="note-item">
-      <NoteItemBody title={title} createdAt={showFormattedDate(createdAt)} body={body} />
-      <DeleteButton id={id} onDelete={onDelete} />
+      <NoteItemContent title={title} createdAt={showFormattedDate(createdAt)} body={body} />
+      <NoteItemAction id={id} onDelete={onDelete} onArchive={onArchive}/>
     </div>
   );
 }
