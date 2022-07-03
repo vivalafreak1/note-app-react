@@ -14,6 +14,7 @@ class NoteAppBody extends React.Component {
     //binding
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
+    this.onArchiveHandler = this.onArchiveHandler.bind(this);
   }
   
   onDeleteHandler(id) {
@@ -21,6 +22,17 @@ class NoteAppBody extends React.Component {
     this.setState({ notes });
   }
   
+  onArchiveHandler(id) {
+    const noteIndex = this.state.notes.findIndex((note) => note.id === id);
+    this.state.notes[noteIndex].archived = !this.state.notes[noteIndex].archived;
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        archived: this.state.notes[noteIndex].archived,
+      }
+    });
+  }
+
   onAddNoteHandler({ title, body }) {
     this.setState((prevState) => {
       return {
@@ -39,12 +51,12 @@ class NoteAppBody extends React.Component {
   }
 
   render() {
-      return (
+    return (
       <div className="note-app__body">
         <h1>Buat Catatan</h1>
         <NoteInput addNote={this.onAddNoteHandler} />
         <h1>Daftar Catatan</h1>
-        <NoteList notes={this.state.notes} onDelete={this.onDeleteHandler} />
+        <NoteList notes={this.state.notes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler} />
         <h1>Arsip</h1>
       </div>
     )
