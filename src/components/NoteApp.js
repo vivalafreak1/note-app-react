@@ -5,6 +5,7 @@ import NoteAppBody from './NoteAppBody';
 function NoteApp() {
     return (
       <div className="note-app">
+        <NoteAppHeader />
         <NoteAppBody />
       </div>
     );

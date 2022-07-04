@@ -1,5 +1,6 @@
 import React from 'react';
 import NoteList from './NoteList';
+import ArchiveList from './ArchiveList';
 import { getInitialData } from '../utils/data';
 
 import NoteInput from './NoteInput';
@@ -21,16 +22,13 @@ class NoteAppBody extends React.Component {
     const notes = this.state.notes.filter(note => note.id !== id);
     this.setState({ notes });
   }
-  
-  onArchiveHandler(id) {
-    const noteIndex = this.state.notes.findIndex((note) => note.id === id);
-    this.state.notes[noteIndex].archived = !this.state.notes[noteIndex].archived;
-    this.setState((prevState) => {
-      return {
-        ...prevState,
-        archived: this.state.notes[noteIndex].archived,
-      }
-    });
+
+  onArchiveHandler(id){
+    const newNotes = [...this.state.notes];
+    const noteIndex = this.state.notes.findIndex(note => note.id === id);
+    newNotes[noteIndex].archived = !this.state.notes[noteIndex].archived;
+
+    this.setState({notes: newNotes});
   }
 
   onAddNoteHandler({ title, body }) {
@@ -58,6 +56,7 @@ class NoteAppBody extends React.Component {
         <h1>Daftar Catatan</h1>
         <NoteList notes={this.state.notes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler} />
         <h1>Arsip</h1>
+        <ArchiveList notes={this.state.notes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler} />
       </div>
     )
   }
